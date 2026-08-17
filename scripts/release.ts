@@ -64,8 +64,11 @@ class Release {
       case "publish":
         await this.publish(arguments_);
         return;
+      case "resume":
+        await this.resume(arguments_);
+        return;
       default:
-        throw new Error("请指定 version、sync、verify、pack 或 publish 动作");
+        throw new Error("请指定 version、sync、verify、pack、publish 或 resume 动作");
     }
   }
 
@@ -135,6 +138,54 @@ class Release {
     }
 
     console.log(`已发布 Cratenaut ${version}`);
+  }
+
+  /**
+   * 恢复同一版本未完成的发布批次
+   *
+   * 仅用于已经有部分包成功发布，且包版本与发布内容均未改变的情况
+   *
+   * 已存在的同版本包会被跳过，未发布包才会调用 `bun publish`
+   */
+  private async resume(arguments_: readonly string[]): Promise<void> {
+    const publishArguments = this.parsePublishArguments(arguments_);
+    const version = await this.assertSourceVersions();
+
+    await this.verify();
+
+    for (const releasePackage of this.packages) {
+      const published = await this.isPackagePublished(releasePackage.name, version);
+
+      if (published) {
+        console.log(`已跳过已发布的包：${releasePackage.name}@${version}`);
+        continue;
+      }
+
+      await this.run(["bun", "publish", ...publishArguments], {
+        cwd: resolve(this.rootDirectory, releasePackage.directory),
+      });
+    }
+
+    console.log(`已恢复 Cratenaut ${version} 的发布`);
+  }
+
+  /**
+   * 从 npm 公共注册表检查指定版本是否已经发布
+   */
+  private async isPackagePublished(packageName: string, version: string): Promise<boolean> {
+    const packagePath = encodeURIComponent(packageName);
+    const versionPath = encodeURIComponent(version);
+    const response = await fetch(`https://registry.npmjs.org/${packagePath}/${versionPath}`);
+
+    if (response.status === 404) {
+      return false;
+    }
+
+    if (!response.ok) {
+      throw new Error(`无法检查 npm 包版本 ${packageName}@${version}：${response.status} ${response.statusText}`);
+    }
+
+    return true;
   }
 
   /**

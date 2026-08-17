@@ -30,4 +30,12 @@ bun run release:publish
 
 `release:publish` 在再次验证通过后，按 Core、CLI、官方 Crate 的依赖顺序使用 `bun publish` 发布。需要预发布标签时可传入 `--tag`，例如 `bun run release:publish -- --tag next`。
 
+如果发布在部分包成功后被中断，且没有修改版本或发布内容，执行以下命令恢复同一批次：
+
+```bash
+bun run release:resume
+```
+
+`release:resume` 会在完整校验后查询 npm 公共注册表。已经存在的同版本包会被跳过，其他包继续发布。不要在修改发布内容后使用该命令，应创建新的版本重新发布。
+
 不要使用 `changeset publish`。该命令会直接调用 `npm publish`，而本仓库的实际打包和发布统一由 `bun publish` 完成。
