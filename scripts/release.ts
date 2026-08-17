@@ -67,8 +67,11 @@ class Release {
       case "resume":
         await this.resume(arguments_);
         return;
+      case "tag":
+        await this.tag();
+        return;
       default:
-        throw new Error("请指定 version、sync、verify、pack、publish 或 resume 动作");
+        throw new Error("请指定 version、sync、verify、pack、publish、resume 或 tag 动作");
     }
   }
 
@@ -129,6 +132,7 @@ class Release {
     const publishArguments = this.parsePublishArguments(arguments_);
     const version = await this.assertSourceVersions();
 
+    await this.assertCleanGitWorktree();
     await this.verify();
 
     for (const releasePackage of this.packages) {
@@ -137,7 +141,8 @@ class Release {
       });
     }
 
-    console.log(`已发布 Cratenaut ${version}`);
+    await this.createAndPushVersionTag(version);
+    console.log(`已发布并标记 Cratenaut ${version}`);
   }
 
   /**
@@ -151,6 +156,7 @@ class Release {
     const publishArguments = this.parsePublishArguments(arguments_);
     const version = await this.assertSourceVersions();
 
+    await this.assertCleanGitWorktree();
     await this.verify();
 
     for (const releasePackage of this.packages) {
@@ -166,7 +172,45 @@ class Release {
       });
     }
 
-    console.log(`已恢复 Cratenaut ${version} 的发布`);
+    await this.createAndPushVersionTag(version);
+    console.log(`已恢复发布并标记 Cratenaut ${version}`);
+  }
+
+  /**
+   * 为当前统一版本创建并推送 `Git` 发布标签
+   *
+   * 用于发布完成后补做标签，或恢复因标签推送中断的发布批次
+   */
+  private async tag(): Promise<void> {
+    const version = await this.assertSourceVersions();
+
+    await this.assertCleanGitWorktree();
+    await this.createAndPushVersionTag(version);
+    console.log(`已创建并推送 Cratenaut ${version} 的发布标签`);
+  }
+
+  /**
+   * 为已提交的发布版本创建并推送统一 `Git` 标签
+   */
+  private async createAndPushVersionTag(version: string): Promise<void> {
+    const tagName = `v${version}`;
+    const hasLocalTag = await this.hasLocalGitTag(tagName);
+
+    if (hasLocalTag) {
+      await this.assertVersionTagPointsToHead(tagName);
+    }
+
+    if (!hasLocalTag && (await this.hasRemoteGitTag(tagName))) {
+      throw new Error(`远程已存在 ${tagName}，但本地没有该标签。请先检查标签指向后再恢复`);
+    }
+
+    if (!hasLocalTag) {
+      await this.run(["git", "tag", "--annotate", tagName, "--message", `Release ${tagName}`]);
+      console.log(`已创建发布标签：${tagName}`);
+    }
+
+    await this.run(["git", "push", "origin", tagName]);
+    console.log(`已推送发布标签：${tagName}`);
   }
 
   /**
@@ -186,6 +230,75 @@ class Release {
     }
 
     return true;
+  }
+
+  /**
+   * 确保当前工作区没有尚未提交的发布内容
+   *
+   * 发布标签必须指向包含版本与变更日志的提交
+   */
+  private async assertCleanGitWorktree(): Promise<void> {
+    const status = await this.readCommandOutput(["git", "status", "--porcelain"]);
+
+    if (status.length > 0) {
+      throw new Error("Git 工作区存在未提交的变更。请先提交版本与变更日志，再执行发布或打标签");
+    }
+  }
+
+  /**
+   * 判断本地是否存在指定发布标签
+   */
+  private async hasLocalGitTag(tagName: string): Promise<boolean> {
+    const exitCode = await this.getCommandExitCode(["git", "show-ref", "--verify", "--quiet", `refs/tags/${tagName}`]);
+
+    if (exitCode === 0) {
+      return true;
+    }
+
+    if (exitCode === 1) {
+      return false;
+    }
+
+    throw new Error(`无法检查本地 Git 标签 ${tagName}（退出码 ${exitCode}）`);
+  }
+
+  /**
+   * 判断远程仓库是否存在指定发布标签
+   */
+  private async hasRemoteGitTag(tagName: string): Promise<boolean> {
+    const exitCode = await this.getCommandExitCode([
+      "git",
+      "ls-remote",
+      "--exit-code",
+      "--tags",
+      "--refs",
+      "origin",
+      `refs/tags/${tagName}`,
+    ]);
+
+    if (exitCode === 0) {
+      return true;
+    }
+
+    if (exitCode === 2) {
+      return false;
+    }
+
+    throw new Error(`无法检查远程 Git 标签 ${tagName}（退出码 ${exitCode}）`);
+  }
+
+  /**
+   * 确保已有发布标签正好指向当前提交
+   */
+  private async assertVersionTagPointsToHead(tagName: string): Promise<void> {
+    const [headCommit, taggedCommit] = await Promise.all([
+      this.readCommandOutput(["git", "rev-parse", "HEAD"]),
+      this.readCommandOutput(["git", "rev-list", "-n", "1", tagName]),
+    ]);
+
+    if (headCommit !== taggedCommit) {
+      throw new Error(`本地标签 ${tagName} 没有指向当前提交，拒绝继续发布`);
+    }
   }
 
   /**
@@ -328,6 +441,41 @@ class Release {
     }
 
     return /(defineCrate\(\{\s*name:\s*"[^"]+",\s*version:\s*)"([^"]+)"/gu;
+  }
+
+  /**
+   * 读取必须成功的命令标准输出
+   */
+  private async readCommandOutput(command: readonly string[]): Promise<string> {
+    const child = Bun.spawn([...command], {
+      cwd: this.rootDirectory,
+      stdout: "pipe",
+      stderr: "pipe",
+    });
+    const [exitCode, output, errorOutput] = await Promise.all([
+      child.exited,
+      new Response(child.stdout).text(),
+      new Response(child.stderr).text(),
+    ]);
+
+    if (exitCode !== 0) {
+      throw new Error(`读取发布命令输出失败（退出码 ${exitCode}）：${command.join(" ")}\n${errorOutput.trim()}`);
+    }
+
+    return output.trim();
+  }
+
+  /**
+   * 获取命令退出码并忽略其输出
+   */
+  private async getCommandExitCode(command: readonly string[]): Promise<number> {
+    const child = Bun.spawn([...command], {
+      cwd: this.rootDirectory,
+      stdout: "ignore",
+      stderr: "ignore",
+    });
+
+    return child.exited;
   }
 
   /**

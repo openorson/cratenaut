@@ -28,7 +28,13 @@ bun run release:publish
 
 `release:verify` 会校验统一版本、源码版本声明和锁文件，然后执行完整检查与所有公开包的发布预演。
 
-`release:publish` 在再次验证通过后，按 Core、CLI、官方 Crate 的依赖顺序使用 `bun publish` 发布。需要预发布标签时可传入 `--tag`，例如 `bun run release:publish -- --tag next`。
+`release:publish` 在再次验证通过后，按 Core、CLI、官方 Crate 的依赖顺序使用 `bun publish` 发布，并为当前提交创建和推送统一的 `Git` 标签，例如 `v0.1.0`。需要预发布标签时可传入 `--tag`，例如 `bun run release:publish -- --tag next`。
+
+发布前要求工作区干净，确保标签对应的提交包含版本与变更日志。如果包已发布但标签推送中断，在确认当前提交正确后执行以下命令补做标签：
+
+```bash
+bun run release:tag
+```
 
 如果发布在部分包成功后被中断，且没有修改版本或发布内容，执行以下命令恢复同一批次：
 
@@ -36,6 +42,6 @@ bun run release:publish
 bun run release:resume
 ```
 
-`release:resume` 会在完整校验后查询 npm 公共注册表。已经存在的同版本包会被跳过，其他包继续发布。不要在修改发布内容后使用该命令，应创建新的版本重新发布。
+`release:resume` 会在完整校验后查询 npm 公共注册表。已经存在的同版本包会被跳过，其他包继续发布并补齐发布标签。不要在修改发布内容后使用该命令，应创建新的版本重新发布。
 
 不要使用 `changeset publish`。该命令会直接调用 `npm publish`，而本仓库的实际打包和发布统一由 `bun publish` 完成。

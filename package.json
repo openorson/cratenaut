@@ -29,6 +29,7 @@
     "release:publish": "bun scripts/release.ts publish",
     "release:resume": "bun scripts/release.ts resume",
     "release:sync": "bun scripts/release.ts sync",
+    "release:tag": "bun scripts/release.ts tag",
     "release:verify": "bun scripts/release.ts verify",
     "release:version": "bun scripts/release.ts version"
   },
