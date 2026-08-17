@@ -1,7 +1,6 @@
 {
   "private": true,
   "name": "@cratenaut/docs",
-  "version": "0.0.1",
   "description": "Cratenaut 官方用户文档",
   "license": "MIT",
   "type": "module",
