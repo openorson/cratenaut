@@ -24,7 +24,7 @@ import { upCommand } from "../commands/up/up.command";
 export const mainCommand = defineCommand({
   meta: {
     name: "naut",
-    version: "0.1.0",
+    version: "0.1.1",
     description: "声明式、多服务器、可审查的 Docker 部署工具",
   },
   subCommands: {

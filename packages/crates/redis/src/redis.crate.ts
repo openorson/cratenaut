@@ -5,7 +5,7 @@ import { change, defineCrate, secret, t } from "@cratenaut/core";
  */
 export const redis = defineCrate({
   name: "redis",
-  version: "0.1.0",
+  version: "0.1.1",
 
   optionsSchema: t
     .Codec(

@@ -1,6 +1,6 @@
 {
   "name": "@cratenaut/cli",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Cratenaut 命令行工具，用于规划、审查和执行 Docker 部署",
   "repository": {
     "type": "git",

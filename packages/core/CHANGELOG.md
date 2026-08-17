@@ -1,5 +1,11 @@
 # @cratenaut/core
 
+## 0.1.1
+
+### Patch Changes
+
+- fix: 依赖包版本错误
+
 ## 0.1.0
 
 ### Minor Changes

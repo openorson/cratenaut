@@ -1,5 +1,13 @@
 # @cratenaut/gitea
 
+## 0.1.1
+
+### Patch Changes
+
+- fix: 依赖包版本错误
+- Updated dependencies
+  - @cratenaut/core@0.1.1
+
 ## 0.1.0
 
 ### Minor Changes

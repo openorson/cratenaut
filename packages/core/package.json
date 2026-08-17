@@ -1,6 +1,6 @@
 {
   "name": "@cratenaut/core",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "定义 Cratenaut 配置、部署单元、资源和敏感信息的公共契约",
   "repository": {
     "type": "git",

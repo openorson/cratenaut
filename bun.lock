@@ -73,7 +73,7 @@
     },
     "packages/cli": {
       "name": "@cratenaut/cli",
-      "version": "0.0.1",
+      "version": "0.1.1",
       "bin": {
         "cratenaut": "./bin/bin.entry.ts",
         "naut": "./bin/bin.entry.ts",
@@ -92,7 +92,7 @@
     },
     "packages/core": {
       "name": "@cratenaut/core",
-      "version": "0.0.1",
+      "version": "0.1.1",
       "dependencies": {
         "typebox": "catalog:",
       },
@@ -108,7 +108,7 @@
     },
     "packages/crates/caddy": {
       "name": "@cratenaut/caddy",
-      "version": "0.0.1",
+      "version": "0.1.1",
       "dependencies": {
         "@cratenaut/core": "workspace:*",
       },
@@ -120,7 +120,7 @@
     },
     "packages/crates/gitea": {
       "name": "@cratenaut/gitea",
-      "version": "0.0.1",
+      "version": "0.1.1",
       "dependencies": {
         "@cratenaut/core": "workspace:*",
       },
@@ -132,7 +132,7 @@
     },
     "packages/crates/postgres": {
       "name": "@cratenaut/postgres",
-      "version": "0.0.1",
+      "version": "0.1.1",
       "dependencies": {
         "@cratenaut/core": "workspace:*",
       },
@@ -144,7 +144,7 @@
     },
     "packages/crates/redis": {
       "name": "@cratenaut/redis",
-      "version": "0.0.1",
+      "version": "0.1.1",
       "dependencies": {
         "@cratenaut/core": "workspace:*",
       },

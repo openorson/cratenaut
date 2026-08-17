@@ -1,6 +1,6 @@
 {
   "name": "@cratenaut/caddy",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "用于部署 Caddy Web 服务器和反向代理的官方 Cratenaut Crate",
   "repository": {
     "type": "git",

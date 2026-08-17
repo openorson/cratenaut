@@ -1,6 +1,6 @@
 {
   "name": "@cratenaut/redis",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "用于部署 Redis 数据服务的官方 Cratenaut Crate",
   "repository": {
     "type": "git",
