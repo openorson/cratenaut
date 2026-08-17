@@ -1,0 +1,62 @@
+{
+  "private": true,
+  "name": "cratenaut",
+  "version": "0.0.1",
+  "description": "用 TypeScript 定义、审查并部署本地与远程服务器上的 Docker 工作负载",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/openorson/cratenaut.git"
+  },
+  "bugs": {
+    "url": "https://github.com/openorson/cratenaut/issues"
+  },
+  "homepage": "https://openorson.github.io/cratenaut/",
+  "author": "openorson",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "check": "bun run format:check && bun run typecheck && bun run test && bun run docs:build",
+    "docs:build": "bun run --cwd docs build",
+    "docs:dev": "bun run --cwd docs dev",
+    "docs:preview": "bun run --cwd docs preview",
+    "format": "prettier --write --ignore-unknown .",
+    "format:check": "prettier --check --ignore-unknown .",
+    "test": "bun run --filter '*' test",
+    "typecheck": "bun run --filter '*' typecheck"
+  },
+  "packageManager": "bun@1.3.14",
+  "engines": {
+    "bun": ">=1.3.14"
+  },
+  "keywords": [
+    "bun",
+    "deployment",
+    "devops",
+    "docker",
+    "infrastructure-as-code",
+    "typescript"
+  ],
+  "devDependencies": {
+    "prettier": "catalog:",
+    "prettier-plugin-sort-package-json": "catalog:",
+    "typescript": "catalog:"
+  },
+  "workspaces": {
+    "packages": [
+      "packages/**/*",
+      "examples/**/*"
+    ],
+    "catalog": {
+      "@tsconfig/node22": "22.0.6",
+      "@types/bun": "1.3.14",
+      "@tsconfig/bun": "1.0.11",
+      "@clack/prompts": "1.7.0",
+      "typebox": "1.3.14",
+      "citty": "0.2.2",
+      "nostics": "1.2.0",
+      "prettier": "3.9.6",
+      "prettier-plugin-sort-package-json": "1.1.0",
+      "typescript": "7.0.2"
+    }
+  }
+}

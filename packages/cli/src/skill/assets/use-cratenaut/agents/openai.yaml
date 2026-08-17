@@ -1,0 +1,7 @@
+interface:
+  display_name: "Use Cratenaut"
+  short_description: "Configure and operate safe Cratenaut deployments"
+  brand_color: "#087F76"
+  default_prompt: "Use $use-cratenaut to plan a safe deployment for this project."
+policy:
+  allow_implicit_invocation: true

@@ -1,0 +1,19 @@
+{
+  "private": true,
+  "name": "@cratenaut/example-multi-server",
+  "description": "本地与远程服务器选择示例",
+  "type": "module",
+  "scripts": {
+    "plan:local": "naut plan --server local --all",
+    "plan:remote": "naut plan --server production --all",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@cratenaut/caddy": "workspace:*",
+    "@cratenaut/cli": "workspace:*",
+    "@cratenaut/core": "workspace:*",
+    "@tsconfig/bun": "catalog:",
+    "@types/bun": "catalog:",
+    "typescript": "catalog:"
+  }
+}

@@ -1,0 +1,608 @@
+:root {
+  --crn-ink: #101820;
+  --crn-ink-soft: #3d4854;
+  --crn-yellow: #ffd83d;
+  --crn-yellow-hover: #ffcc1f;
+  --crn-yellow-active: #ffc400;
+  --crn-yellow-text: #df9300;
+  --crn-blue: #d6ebff;
+  --crn-blue-strong: #5caaf4;
+  --crn-canvas: #f5f7fa;
+  --crn-card: #ffffff;
+  --crn-border: #e4e9ef;
+  --vp-c-bg: var(--crn-canvas);
+  --vp-c-bg-alt: #eef2f6;
+  --vp-c-bg-elv: var(--crn-card);
+  --vp-c-bg-soft: var(--crn-card);
+  --vp-c-text-1: var(--crn-ink);
+  --vp-c-text-2: #66717d;
+  --vp-c-text-3: #929ba5;
+  --vp-c-brand-1: var(--crn-yellow-text);
+  --vp-c-brand-2: #eda400;
+  --vp-c-brand-3: var(--crn-yellow-active);
+  --vp-c-brand-soft: rgba(255, 216, 61, 0.22);
+  --vp-c-divider: var(--crn-border);
+  --vp-nav-height: 68px;
+  --vp-nav-logo-height: 30px;
+  --vp-layout-max-width: 1440px;
+  --vp-sidebar-width: 264px;
+  --vp-sidebar-bg-color: #f8fafc;
+  --vp-nav-bg-color: rgba(255, 255, 255, 0.96);
+  --vp-font-family-base:
+    Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei",
+    sans-serif;
+  --vp-font-family-mono: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  --vp-home-hero-name-color: var(--crn-ink);
+  --vp-home-hero-name-background: none;
+  --vp-home-hero-image-background-image:
+    radial-gradient(circle at 36% 40%, rgba(255, 216, 61, 0.44), transparent 42%),
+    radial-gradient(circle at 66% 58%, rgba(92, 170, 244, 0.36), transparent 44%);
+  --vp-home-hero-image-filter: blur(22px);
+  --vp-button-brand-border: var(--crn-yellow);
+  --vp-button-brand-text: var(--crn-ink);
+  --vp-button-brand-bg: var(--crn-yellow);
+  --vp-button-brand-hover-border: var(--crn-yellow-hover);
+  --vp-button-brand-hover-text: var(--crn-ink);
+  --vp-button-brand-hover-bg: var(--crn-yellow-hover);
+  --vp-button-brand-active-border: var(--crn-yellow-active);
+  --vp-button-brand-active-text: var(--crn-ink);
+  --vp-button-brand-active-bg: var(--crn-yellow-active);
+}
+
+body {
+  background: var(--crn-canvas);
+}
+
+.VPNav,
+.VPNavBar {
+  background: var(--vp-nav-bg-color) !important;
+}
+
+.VPNav {
+  border-bottom: 1px solid rgba(16, 24, 32, 0.07);
+  box-shadow: 0 8px 28px rgba(32, 48, 64, 0.045);
+  backdrop-filter: blur(18px);
+}
+
+.VPNavBar .content-body,
+.VPNavBar.has-sidebar .title {
+  background: transparent !important;
+}
+
+.VPNavBar .divider-line {
+  background: transparent !important;
+}
+
+.VPNavBarTitle,
+.VPNavBarTitle .title {
+  height: var(--vp-nav-height);
+}
+
+.VPNavBarTitle .title {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  border-bottom: 0 !important;
+  color: var(--crn-ink);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.025em;
+}
+
+.VPNavBarTitle .logo {
+  display: block;
+  flex: 0 0 auto;
+  width: 30px;
+  height: 30px;
+  margin: 0 !important;
+}
+
+.VPNavBarTitle .title > span {
+  display: inline-flex;
+  align-items: center;
+  line-height: 1;
+}
+
+.VPNavBarMenuLink {
+  color: #2d3742 !important;
+  font-weight: 650 !important;
+}
+
+.VPNavBarMenuLink:hover,
+.VPNavBarMenuLink.active {
+  color: var(--vp-c-brand-2) !important;
+}
+
+.VPNavBarSearch .DocSearch-Button,
+.VPNavBarSearch .VPLocalSearchBox .shell {
+  border-color: transparent;
+  background: #f4f6f9;
+}
+
+.VPSidebar {
+  border-right: 1px solid rgba(16, 24, 32, 0.055);
+}
+
+.VPSidebarItem.level-1 > .item > .link,
+.VPSidebarItem.level-2 > .item > .link,
+.VPSidebarItem.level-3 > .item > .link {
+  margin-left: -10px;
+  border-radius: 10px;
+  padding: 1px 10px;
+  transition:
+    color 180ms ease,
+    background-color 180ms ease;
+}
+
+.VPSidebarItem.level-1.is-link > .item > .link:hover,
+.VPSidebarItem.level-2.is-link > .item > .link:hover,
+.VPSidebarItem.level-3.is-link > .item > .link:hover {
+  background: #fffbea;
+}
+
+.VPSidebarItem.is-active > .item > .link {
+  background: #fff5bd;
+}
+
+.VPSidebarItem.is-active > .item > .link > .text,
+.VPSidebarItem.is-link > .item > .link:hover > .text,
+.VPDocOutlineItem .outline-link.active,
+.VPDocOutlineItem .outline-link:hover {
+  color: var(--vp-c-brand-2) !important;
+}
+
+.VPHomeHero {
+  max-width: 1240px;
+  min-height: 460px;
+  margin: 28px auto 0 !important;
+  padding: 72px 68px 68px !important;
+  overflow: hidden;
+  border: 1px solid rgba(92, 170, 244, 0.16);
+  border-radius: 30px;
+  background:
+    radial-gradient(circle at 78% 22%, rgba(255, 255, 255, 0.88), transparent 27%),
+    linear-gradient(135deg, #e4f2ff 0%, var(--crn-blue) 54%, #eaf3ff 100%);
+  box-shadow: 0 20px 56px rgba(55, 83, 111, 0.09);
+}
+
+.VPHomeHero .container {
+  max-width: 1104px;
+}
+
+.VPHomeHero .main {
+  align-self: center;
+}
+
+.VPHomeHero .name {
+  font-size: 20px;
+  font-weight: 850;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+.VPHomeHero .text {
+  max-width: 640px;
+  margin-top: 18px;
+  color: var(--crn-ink);
+  font-size: 52px;
+  font-weight: 900;
+  line-height: 1.08;
+  letter-spacing: -0.045em;
+}
+
+.VPHomeHero .tagline {
+  max-width: 620px;
+  padding-top: 20px;
+  color: var(--crn-ink-soft);
+  font-size: 18px;
+  line-height: 1.75;
+}
+
+.VPHomeHero .actions {
+  gap: 2px;
+  padding-top: 26px;
+}
+
+.VPHomeHero .action .VPButton {
+  min-width: 148px;
+  border-radius: 999px;
+  font-weight: 750;
+  transition:
+    border-color 180ms ease,
+    background-color 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.VPHomeHero .action .VPButton.brand:hover {
+  box-shadow: 0 8px 20px rgba(255, 196, 0, 0.22);
+}
+
+.VPHomeHero .action .VPButton.alt {
+  border-color: rgba(16, 24, 32, 0.075);
+  color: var(--crn-ink);
+  background: rgba(255, 255, 255, 0.86);
+}
+
+.VPHomeHero .action .VPButton.alt:hover {
+  border-color: rgba(16, 24, 32, 0.12);
+  background: #ffffff;
+}
+
+.VPHomeHero .image,
+.VPHomeHero .image-container {
+  margin: 0;
+  transform: none;
+}
+
+.VPHomeHero .image-src {
+  width: min(236px, 60vw);
+  max-width: 236px;
+  height: auto;
+  max-height: 236px;
+}
+
+.VPFeatures {
+  padding-top: 34px !important;
+}
+
+.VPFeatures .container {
+  max-width: 1240px;
+}
+
+.VPFeatures .items {
+  margin: -10px;
+  counter-reset: crn-feature;
+}
+
+.VPFeatures .item {
+  padding: 10px;
+  counter-increment: crn-feature;
+}
+
+.VPFeature {
+  position: relative;
+  min-height: 174px;
+  overflow: hidden;
+  border: 1px solid rgba(16, 24, 32, 0.065) !important;
+  border-radius: 22px !important;
+  background: linear-gradient(145deg, #ffffff, #fcfdff) !important;
+  box-shadow: 0 8px 24px rgba(62, 76, 91, 0.045);
+  transition:
+    border-color 320ms cubic-bezier(0.2, 0.75, 0.2, 1),
+    box-shadow 320ms cubic-bezier(0.2, 0.75, 0.2, 1),
+    background-color 320ms cubic-bezier(0.2, 0.75, 0.2, 1);
+}
+
+.VPFeature:hover {
+  border-color: rgba(255, 196, 0, 0.42) !important;
+  box-shadow: 0 14px 34px rgba(62, 76, 91, 0.075);
+}
+
+.VPFeature .box {
+  position: relative;
+  padding: 26px 28px 28px;
+}
+
+.VPFeature .box::before {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+  border-radius: 999px;
+  width: 36px;
+  height: 24px;
+  color: #9b6700;
+  background: #fff4b3;
+  font-family: var(--vp-font-family-mono);
+  font-size: 11px;
+  font-weight: 750;
+  letter-spacing: 0.02em;
+  content: "0" counter(crn-feature);
+  transition:
+    color 280ms ease,
+    background-color 280ms ease;
+}
+
+.VPFeature .box::after {
+  position: absolute;
+  right: 28px;
+  bottom: 24px;
+  width: 28px;
+  height: 3px;
+  border-radius: 999px;
+  background: var(--crn-yellow);
+  opacity: 0.7;
+  content: "";
+  transition:
+    width 420ms cubic-bezier(0.2, 0.75, 0.2, 1),
+    opacity 280ms ease;
+}
+
+.VPFeature:hover .box::before {
+  color: #845700;
+  background: #ffed8d;
+}
+
+.VPFeature:hover .box::after {
+  width: 56px;
+  opacity: 1;
+}
+
+.VPFeature .title {
+  color: var(--crn-ink);
+  font-size: 18px;
+  font-weight: 800;
+  letter-spacing: -0.015em;
+}
+
+.VPFeature .details {
+  padding-top: 9px;
+  color: var(--vp-c-text-2);
+  line-height: 1.7;
+}
+
+.mission-flow {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  max-width: 1240px;
+  margin: 70px auto 24px;
+  overflow: hidden;
+  border: 1px solid rgba(16, 24, 32, 0.06);
+  border-radius: 24px;
+  background: var(--crn-card);
+  box-shadow: 0 10px 28px rgba(62, 76, 91, 0.05);
+}
+
+.mission-step {
+  position: relative;
+  min-height: 166px;
+  padding: 28px 26px;
+  border-right: 1px solid var(--crn-border);
+  background: var(--crn-card);
+}
+
+.mission-step:last-child {
+  border-right: 0;
+}
+
+.mission-step span {
+  display: inline-flex;
+  margin-bottom: 22px;
+  border-radius: 999px;
+  padding: 5px 10px;
+  color: #986400;
+  background: #fff5bd;
+  font-family: var(--vp-font-family-mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+}
+
+.mission-step strong {
+  display: block;
+  margin-bottom: 9px;
+  color: var(--crn-ink);
+  font-size: 18px;
+}
+
+.mission-step p {
+  margin: 0;
+  color: var(--vp-c-text-2);
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.concept-card {
+  max-width: 1240px;
+  margin: 32px auto 80px;
+  padding: 34px 36px;
+  border: 1px solid rgba(255, 196, 0, 0.25);
+  border-radius: 24px;
+  background: linear-gradient(125deg, #fff5b8, #fffdf0);
+  box-shadow: 0 10px 28px rgba(114, 86, 0, 0.05);
+}
+
+.concept-card h2 {
+  margin: 0 0 12px;
+  border: 0;
+  padding: 0;
+  color: var(--crn-ink);
+}
+
+.concept-card p:last-child {
+  margin-bottom: 0;
+}
+
+.VPDoc .container {
+  max-width: 1480px;
+}
+
+.VPDoc.has-aside .content-container,
+.VPDoc:not(.has-aside) .content-container {
+  max-width: 1040px !important;
+}
+
+.VPDoc .content-container {
+  border: 1px solid rgba(16, 24, 32, 0.055);
+  border-radius: 24px;
+  padding: 44px 50px 54px;
+  background: var(--crn-card);
+  box-shadow: 0 10px 30px rgba(62, 76, 91, 0.045);
+}
+
+.VPDoc .aside {
+  max-width: 232px;
+  padding-left: 28px;
+}
+
+.vp-doc h1,
+.vp-doc h2,
+.vp-doc h3 {
+  color: var(--crn-ink);
+  letter-spacing: -0.025em;
+}
+
+.vp-doc h1 {
+  font-weight: 900;
+}
+
+.vp-doc a {
+  text-decoration-color: rgba(237, 164, 0, 0.45);
+  text-underline-offset: 3px;
+}
+
+.vp-doc a:hover {
+  color: var(--vp-c-brand-2);
+  text-decoration-color: currentcolor;
+}
+
+.vp-doc table {
+  display: table;
+  width: 100%;
+}
+
+.vp-doc div[class*="language-"] {
+  border: 1px solid #e8edf2;
+  background: #f7f9fb;
+}
+
+.vp-doc code {
+  color: #b87400;
+  background: #fff5c5;
+}
+
+.vp-doc div[class*="language-"] code {
+  color: inherit;
+  background: transparent;
+}
+
+@media (min-width: 1280px) and (max-width: 1599px) {
+  .VPDoc .aside {
+    display: none !important;
+  }
+}
+
+@media (min-width: 1600px) {
+  :root {
+    --vp-layout-max-width: 1600px;
+  }
+}
+
+@media (max-width: 1120px) {
+  .VPHomeHero {
+    margin: 24px 24px 0 !important;
+    padding: 62px 44px !important;
+  }
+
+  .VPHomeHero .text {
+    font-size: 46px;
+  }
+}
+
+@media (max-width: 960px) {
+  .VPDoc .content-container {
+    border: 0;
+    border-radius: 0;
+    padding: 0;
+    background: transparent;
+    box-shadow: none;
+  }
+}
+
+@media (max-width: 760px) {
+  .VPHomeHero {
+    min-height: 0;
+    margin: 16px 16px 0 !important;
+    padding: 30px 24px 40px !important;
+    border-radius: 24px;
+  }
+
+  .VPHomeHero .image {
+    margin: -4px 0 12px;
+  }
+
+  .VPHomeHero .image-container {
+    width: 220px;
+    height: 174px;
+  }
+
+  .VPHomeHero .image-bg {
+    width: 176px;
+    height: 176px;
+  }
+
+  .VPHomeHero .image-src {
+    width: 148px;
+    max-width: 148px;
+    max-height: 148px;
+  }
+
+  .VPHomeHero .name {
+    font-size: 18px;
+  }
+
+  .VPHomeHero .text {
+    margin-top: 14px;
+    font-size: 38px;
+    line-height: 1.12;
+  }
+
+  .VPHomeHero .tagline {
+    padding-top: 16px;
+    font-size: 16px;
+    line-height: 1.65;
+  }
+
+  .VPHomeHero .actions {
+    justify-content: center;
+    padding-top: 22px;
+  }
+
+  .VPHomeHero .action .VPButton {
+    min-width: 0;
+  }
+
+  .VPFeatures {
+    padding-top: 24px !important;
+  }
+
+  .vp-doc table {
+    display: block;
+    max-width: 100%;
+    overflow-x: auto;
+  }
+
+  .VPFeature {
+    min-height: 0;
+  }
+
+  .mission-flow {
+    grid-template-columns: 1fr;
+    margin: 48px 16px 24px;
+  }
+
+  .mission-step {
+    min-height: auto;
+    border-right: 0;
+    border-bottom: 1px solid var(--crn-border);
+  }
+
+  .mission-step:last-child {
+    border-bottom: 0;
+  }
+
+  .concept-card {
+    margin: 24px 16px 56px;
+    padding: 28px 24px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .VPFeature,
+  .VPFeature .box::before,
+  .VPFeature .box::after,
+  .VPHomeHero .action .VPButton {
+    transition: none;
+  }
+}

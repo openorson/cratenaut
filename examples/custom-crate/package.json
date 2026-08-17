@@ -1,0 +1,19 @@
+{
+  "private": true,
+  "name": "@cratenaut/example-custom-crate",
+  "description": "编写和使用自定义 Crate 的示例",
+  "type": "module",
+  "scripts": {
+    "deploy": "naut deploy --all",
+    "down": "naut down --all",
+    "plan": "naut plan --all",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@cratenaut/cli": "workspace:*",
+    "@cratenaut/core": "workspace:*",
+    "@tsconfig/bun": "catalog:",
+    "@types/bun": "catalog:",
+    "typescript": "catalog:"
+  }
+}

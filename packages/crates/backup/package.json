@@ -1,0 +1,12 @@
+{
+  "private": true,
+  "name": "@cratenaut/backup",
+  "version": "0.0.1",
+  "description": "Cratenaut 备份能力的设计占位包，尚未提供可用实现",
+  "license": "MIT",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "dependencies": {}
+}

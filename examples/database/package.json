@@ -1,0 +1,22 @@
+{
+  "private": true,
+  "name": "@cratenaut/example-database",
+  "description": "PostgreSQL、Redis 和敏感信息示例",
+  "type": "module",
+  "scripts": {
+    "deploy": "naut deploy --all",
+    "down": "naut down --all",
+    "plan": "naut plan --all",
+    "status": "naut status --all",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@cratenaut/cli": "workspace:*",
+    "@cratenaut/core": "workspace:*",
+    "@cratenaut/postgres": "workspace:*",
+    "@cratenaut/redis": "workspace:*",
+    "@tsconfig/bun": "catalog:",
+    "@types/bun": "catalog:",
+    "typescript": "catalog:"
+  }
+}

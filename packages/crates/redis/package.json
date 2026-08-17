@@ -1,0 +1,44 @@
+{
+  "name": "@cratenaut/redis",
+  "version": "0.0.1",
+  "description": "用于部署 Redis 数据服务的官方 Cratenaut Crate",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/openorson/cratenaut.git",
+    "directory": "packages/crates/redis"
+  },
+  "bugs": {
+    "url": "https://github.com/openorson/cratenaut/issues"
+  },
+  "homepage": "https://openorson.github.io/cratenaut/crates/redis",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "test": "bun test",
+    "typecheck": "tsc --noEmit"
+  },
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "files": [
+    "src"
+  ],
+  "keywords": [
+    "cratenaut",
+    "deployment",
+    "docker",
+    "redis"
+  ],
+  "dependencies": {
+    "@cratenaut/core": "workspace:*"
+  },
+  "devDependencies": {
+    "@tsconfig/bun": "catalog:",
+    "@types/bun": "catalog:",
+    "typescript": "catalog:"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "sideEffects": false
+}

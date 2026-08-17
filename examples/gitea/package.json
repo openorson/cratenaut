@@ -1,0 +1,22 @@
+{
+  "private": true,
+  "name": "@cratenaut/example-gitea",
+  "description": "Gitea 与 Caddy 组合部署示例",
+  "type": "module",
+  "scripts": {
+    "deploy": "naut deploy --all",
+    "down": "naut down --all",
+    "plan": "naut plan --all",
+    "status": "naut status --all",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@cratenaut/caddy": "workspace:*",
+    "@cratenaut/cli": "workspace:*",
+    "@cratenaut/core": "workspace:*",
+    "@cratenaut/gitea": "workspace:*",
+    "@tsconfig/bun": "catalog:",
+    "@types/bun": "catalog:",
+    "typescript": "catalog:"
+  }
+}

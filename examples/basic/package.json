@@ -1,0 +1,21 @@
+{
+  "private": true,
+  "name": "@cratenaut/example-basic",
+  "description": "Cratenaut 最小本地部署示例",
+  "type": "module",
+  "scripts": {
+    "deploy": "naut deploy --all",
+    "down": "naut down --all",
+    "plan": "naut plan --all",
+    "status": "naut status --all",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@cratenaut/caddy": "workspace:*",
+    "@cratenaut/cli": "workspace:*",
+    "@cratenaut/core": "workspace:*",
+    "@tsconfig/bun": "catalog:",
+    "@types/bun": "catalog:",
+    "typescript": "catalog:"
+  }
+}

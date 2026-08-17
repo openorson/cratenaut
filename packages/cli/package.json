@@ -1,0 +1,48 @@
+{
+  "name": "@cratenaut/cli",
+  "version": "0.0.1",
+  "description": "Cratenaut 命令行工具，用于规划、审查和执行 Docker 部署",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/openorson/cratenaut.git",
+    "directory": "packages/cli"
+  },
+  "bugs": {
+    "url": "https://github.com/openorson/cratenaut/issues"
+  },
+  "homepage": "https://openorson.github.io/cratenaut/guide/getting-started",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "test": "bun test",
+    "typecheck": "tsc --noEmit"
+  },
+  "bin": {
+    "cratenaut": "./bin/bin.entry.ts",
+    "naut": "./bin/bin.entry.ts"
+  },
+  "files": [
+    "bin",
+    "src"
+  ],
+  "keywords": [
+    "deployment",
+    "docker",
+    "infrastructure-as-code",
+    "typescript"
+  ],
+  "dependencies": {
+    "@clack/prompts": "catalog:",
+    "@cratenaut/core": "workspace:*",
+    "citty": "catalog:",
+    "nostics": "catalog:"
+  },
+  "devDependencies": {
+    "@tsconfig/bun": "catalog:",
+    "@types/bun": "catalog:",
+    "typescript": "catalog:"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

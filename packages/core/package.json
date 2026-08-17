@@ -1,0 +1,45 @@
+{
+  "name": "@cratenaut/core",
+  "version": "0.0.1",
+  "description": "定义 Cratenaut 配置、部署单元、资源和敏感信息的公共契约",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/openorson/cratenaut.git",
+    "directory": "packages/core"
+  },
+  "bugs": {
+    "url": "https://github.com/openorson/cratenaut/issues"
+  },
+  "homepage": "https://openorson.github.io/cratenaut/advanced/custom-crate",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "test": "bun test",
+    "typecheck": "tsc --noEmit"
+  },
+  "exports": {
+    ".": "./src/index.ts",
+    "./internal": "./src/internal/index.ts"
+  },
+  "files": [
+    "src"
+  ],
+  "keywords": [
+    "deployment",
+    "docker",
+    "infrastructure-as-code",
+    "typescript"
+  ],
+  "dependencies": {
+    "typebox": "catalog:"
+  },
+  "devDependencies": {
+    "@tsconfig/bun": "catalog:",
+    "@types/bun": "catalog:",
+    "typescript": "catalog:"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "sideEffects": false
+}
