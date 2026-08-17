@@ -5,7 +5,7 @@ import { change, defineCrate, secret, t } from "@cratenaut/core";
  */
 export const postgres = defineCrate({
   name: "postgres",
-  version: "0.0.1",
+  version: "0.1.0",
 
   optionsSchema: t
     .Codec(

@@ -5,7 +5,7 @@ import { change, defineCrate, secret, t } from "@cratenaut/core";
  */
 export const gitea = defineCrate({
   name: "gitea",
-  version: "0.0.1",
+  version: "0.1.0",
 
   optionsSchema: t
     .Codec(

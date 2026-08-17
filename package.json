@@ -1,7 +1,6 @@
 {
   "private": true,
   "name": "cratenaut",
-  "version": "0.0.1",
   "description": "用 TypeScript 定义、审查并部署本地与远程服务器上的 Docker 工作负载",
   "repository": {
     "type": "git",
@@ -17,7 +16,7 @@
   "scripts": {
     "prepare": "husky",
     "test": "bun run --filter '*' test",
-    "typecheck": "bun run --filter '*' typecheck",
+    "typecheck": "tsc --ignoreConfig --noEmit --target esnext --module preserve --moduleResolution bundler --allowImportingTsExtensions --types bun --strict --noUncheckedIndexedAccess scripts/release.ts && bun run --filter '*' typecheck",
     "check": "bun run format:check && bun run typecheck && bun run test && bun run docs:build",
     "format": "prettier --write --ignore-unknown .",
     "format:check": "prettier --check --ignore-unknown .",
@@ -46,6 +45,7 @@
   ],
   "devDependencies": {
     "@changesets/cli": "catalog:",
+    "@types/bun": "catalog:",
     "@tsconfig/bun": "catalog:",
     "husky": "catalog:",
     "lint-staged": "catalog:",

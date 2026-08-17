@@ -6,6 +6,8 @@
       "name": "cratenaut",
       "devDependencies": {
         "@changesets/cli": "catalog:",
+        "@tsconfig/bun": "catalog:",
+        "@types/bun": "catalog:",
         "husky": "catalog:",
         "lint-staged": "catalog:",
         "prettier": "catalog:",

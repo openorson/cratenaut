@@ -73,6 +73,11 @@ class Release {
    * 应用变更记录并生成可发布版本
    */
   private async version(): Promise<void> {
+    if (!(await this.hasPendingChangesets())) {
+      console.log("没有待发布的 Changeset，已跳过版本生成");
+      return;
+    }
+
     await this.run(["bun", "run", "changeset", "version"]);
     const version = await this.synchronizeSourceVersions();
     await this.run(["bun", "install", "--lockfile-only", "--ignore-scripts"]);
@@ -156,12 +161,13 @@ class Release {
       }),
     );
     const uniqueVersions = [...new Set(versions)];
+    const [version] = uniqueVersions;
 
-    if (uniqueVersions.length !== 1) {
+    if (uniqueVersions.length !== 1 || version === undefined) {
       throw new Error(`公开包版本必须一致，当前版本为：${versions.join(", ")}`);
     }
 
-    return uniqueVersions[0];
+    return version;
   }
 
   /**
@@ -215,9 +221,14 @@ class Release {
         if (matches.length !== 1) {
           throw new Error(`无法确定唯一的源码版本声明：${sourcePath}`);
         }
+        const [match] = matches;
 
-        if (matches[0][2] !== version) {
-          throw new Error(`源码版本与包清单不一致：${sourcePath}（${matches[0][2]} ≠ ${version}）`);
+        if (match === undefined || match[2] === undefined) {
+          throw new Error(`无法读取源码版本声明：${sourcePath}`);
+        }
+
+        if (match[2] !== version) {
+          throw new Error(`源码版本与包清单不一致：${sourcePath}（${match[2]} ≠ ${version}）`);
         }
       }),
     );
@@ -229,15 +240,32 @@ class Release {
    * 解析可透传给 `bun publish` 的预发布标签
    */
   private parsePublishArguments(arguments_: readonly string[]): readonly string[] {
+    const [option, tag] = arguments_;
+
     if (arguments_.length === 0) {
       return [];
     }
 
-    if (arguments_.length === 2 && arguments_[0] === "--tag" && arguments_[1].length > 0) {
+    if (arguments_.length === 2 && option === "--tag" && tag !== undefined && tag.length > 0) {
       return arguments_;
     }
 
     throw new Error("仅支持 --tag <标签> 参数，认证信息请使用 Bun 的交互式认证或 NPM_CONFIG_TOKEN");
+  }
+
+  /**
+   * 判断是否存在由贡献者创建的待发布变更记录
+   */
+  private async hasPendingChangesets(): Promise<boolean> {
+    const changesetDirectory = resolve(this.rootDirectory, ".changeset");
+
+    for await (const fileName of new Bun.Glob("*.md").scan({ cwd: changesetDirectory, onlyFiles: true })) {
+      if (fileName !== "README.md") {
+        return true;
+      }
+    }
+
+    return false;
   }
 
   /**
@@ -255,7 +283,7 @@ class Release {
    * 运行必须成功的发布子进程
    */
   private async run(command: readonly string[], options: Readonly<{ cwd?: string }> = {}): Promise<void> {
-    const child = Bun.spawn(command, {
+    const child = Bun.spawn([...command], {
       cwd: options.cwd ?? this.rootDirectory,
       stdin: "inherit",
       stdout: "inherit",

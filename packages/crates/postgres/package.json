@@ -1,6 +1,6 @@
 {
   "name": "@cratenaut/postgres",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "用于部署 PostgreSQL 数据库的官方 Cratenaut Crate",
   "repository": {
     "type": "git",
