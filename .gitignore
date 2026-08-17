@@ -1,6 +1,5 @@
 node_modules
 dist
-bun.lock
 !docs/bun.lock
 .vscode
 .codebase-memory

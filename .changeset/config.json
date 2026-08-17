@@ -1,0 +1,21 @@
+{
+  "changelog": "@changesets/cli/changelog",
+  "commit": false,
+  "access": "public",
+  "baseBranch": "main",
+  "updateInternalDependencies": "patch",
+  "ignore": [],
+  "fixed": [
+    [
+      "@cratenaut/core",
+      "@cratenaut/cli",
+      "@cratenaut/caddy",
+      "@cratenaut/gitea",
+      "@cratenaut/postgres",
+      "@cratenaut/redis"
+    ]
+  ],
+  "linked": [],
+  "bumpVersionsWithWorkspaceProtocolOnly": true,
+  "format": "prettier"
+}
